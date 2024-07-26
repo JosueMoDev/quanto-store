@@ -1,0 +1,7 @@
+{
+  "name": "quanto-store",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
