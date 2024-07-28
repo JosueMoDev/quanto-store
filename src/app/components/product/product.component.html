@@ -1,5 +1,5 @@
 <ion-card>
-  <img [src]="product.image" alt="Product Image" />
+  <img [src]="product.photoUrl" alt="Product Image" />
 
   <ion-card-header>
     <ion-card-title>{{ product.name }}</ion-card-title>
@@ -8,7 +8,7 @@
 
   <ion-card-content>
     <div class="quantity-container">
-       <ion-button fill="solid" (click)="incrementQuantity()">
+       <ion-button fill="solid" (click)="incrementQuantity()" color="dark">
         <ion-icon slot="start" ios="add-outline" md="add-outline"></ion-icon>
         add
       </ion-button>
@@ -17,12 +17,12 @@
         {{ quantity }}
       </div>
 
-      <ion-button fill="solid" (click)="decrementQuantity()" [disabled]="quantity<=1">
+      <ion-button fill="solid" (click)="decrementQuantity()" [disabled]="quantity<=1" color="dark">
         <ion-icon slot="start" ios="remove-outline" md="remove-outline"></ion-icon>
         remove
       </ion-button>
     </div>
-    <ion-button expand="full" (click)="addToCart()" color="secondary">
+    <ion-button expand="full" (click)="addToCart()" color="success">
       <ion-icon slot="start" ios="cart-outline" md="cart-outline"></ion-icon>
         Add to cart
     </ion-button>

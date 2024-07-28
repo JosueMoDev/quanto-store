@@ -1,8 +1,7 @@
-<app-product 
-  [product]="{ 
-    image: 'https://www.pizzahut.com.sv/static/media/images/images/jpg/1_30-05-2024-07-10_MD.jpg', 
-    name: 'Product Name', 
-    price: 29.99 
-  }">
-</app-product>
-
+<!-- src/app/components/my-component/my-component.component.html -->
+@for ( product of products; track product.id) {
+    <ul>
+    <app-product [product]="product" >
+    </app-product>
+  </ul>
+}

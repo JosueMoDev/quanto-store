@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import {addOutline, addSharp, cartOutline, removeOutline, removeSharp} from 'ionicons/icons'
+import { Product } from 'src/app/models/product.model';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -16,7 +17,7 @@ export class ProductComponent {
     addIcons({ addOutline, removeOutline, cartOutline });
   }
 
-  @Input() product!: { image: string; name: string; price: number };
+  @Input() product!: Product;
   quantity = 1;
 
   incrementQuantity() {
