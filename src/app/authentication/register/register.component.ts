@@ -1,6 +1,25 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButton, IonCard, IonCardTitle, IonCardContent, IonCardHeader, IonInputPasswordToggle } from '@ionic/angular/standalone';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonItem,
+  IonLabel,
+  IonInput,
+  IonButton,
+  IonCard,
+  IonCardTitle,
+  IonCardContent,
+  IonCardHeader,
+  IonInputPasswordToggle,
+} from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-register',

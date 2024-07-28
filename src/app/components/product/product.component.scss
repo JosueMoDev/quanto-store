@@ -1,0 +1,21 @@
+ion-card {
+  max-width: 400px;
+  margin: 16px auto;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.quantity-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.quantity {
+  font-size: 1.2rem;
+  margin: 0 16px;
+}
