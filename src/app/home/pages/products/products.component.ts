@@ -17,9 +17,10 @@ import { ProductsService } from 'src/app/services/products.service';
 export default class ProductsComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
   public modalController = inject(ModalController);
-  products: Product[] | null = null;
+  products: Product[] | [] = [];
   async ngOnInit() {
     this.products = await this.productsService.getAllProduct();
+    
   }
 
   async openProductModal() {
