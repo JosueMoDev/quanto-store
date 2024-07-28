@@ -30,6 +30,9 @@ export class ProductComponent {
   }
 
   addToCart() {
-    
+      console.log('Product added to cart:', {
+        ...this.product,
+        quantity: this.quantity,
+      });
   }
 }

@@ -17,7 +17,7 @@
         {{ quantity }}
       </div>
 
-      <ion-button fill="solid" (click)="decrementQuantity()">
+      <ion-button fill="solid" (click)="decrementQuantity()" [disabled]="quantity<=1">
         <ion-icon slot="start" ios="remove-outline" md="remove-outline"></ion-icon>
         remove
       </ion-button>
