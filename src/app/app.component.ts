@@ -15,24 +15,14 @@ import {
   IonLabel,
   IonRouterOutlet,
   IonRouterLink,
+  IonMenuButton,
+  IonHeader,
+  IonToolbar,
+  IonButtons,
+  IonTitle,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import {
-  mailOutline,
-  mailSharp,
-  paperPlaneOutline,
-  paperPlaneSharp,
-  heartOutline,
-  heartSharp,
-  archiveOutline,
-  archiveSharp,
-  trashOutline,
-  trashSharp,
-  warningOutline,
-  warningSharp,
-  bookmarkOutline,
-  bookmarkSharp,
-} from 'ionicons/icons';
+import { basketOutline, basketSharp, cashOutline, cashSharp } from 'ionicons/icons';
 
 @Component({
   selector: 'app-root',
@@ -56,30 +46,24 @@ import {
     IonLabel,
     IonRouterLink,
     IonRouterOutlet,
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonTitle,
+    IonMenuButton,
   ],
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Products', url: '/home/products', icon: 'mail' },
-    { title: 'Sales', url: '/home/sales', icon: 'paper-plane' },
+    { title: 'Products', url: '/home/products', icon: 'basket' },
+    { title: 'Sales', url: '/home/sales', icon: 'cash' },
   ];
-  public labels = ['Family', 'Friends'];
   constructor() {
     addIcons({
-      mailOutline,
-      mailSharp,
-      paperPlaneOutline,
-      paperPlaneSharp,
-      heartOutline,
-      heartSharp,
-      archiveOutline,
-      archiveSharp,
-      trashOutline,
-      trashSharp,
-      warningOutline,
-      warningSharp,
-      bookmarkOutline,
-      bookmarkSharp,
+      basketOutline,
+      basketSharp,
+      cashOutline,
+      cashSharp
     });
   }
 }

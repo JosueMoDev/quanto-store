@@ -20,5 +20,19 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'authentication',
+    loadComponent: () => import('./authentication/authentication.page'),
+    children: [
+      {
+        path: 'register',
+        loadComponent: () => import('./authentication/register/register.component'),
+      },
+      {
+        path: 'login',
+        loadComponent: () => import('./authentication/login/login.component'),
+      },
+    ],
+  },
 ];
 
