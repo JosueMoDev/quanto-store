@@ -1,21 +1,31 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
+import { ModalController } from '@ionic/angular/standalone';
+import { ProductModalComponent } from 'src/app/components/product-modal/product-modal.component';
 import { ProductComponent } from 'src/app/components/product/product.component';
 import { Product } from 'src/app/models/product.model';
-import { FireBaseService } from 'src/app/services/firebase.service';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   standalone: true,
   styleUrls: ['./products.component.scss'],
-  imports: [ProductComponent, CommonModule],
+  imports: [ProductComponent, CommonModule, IonicModule],
 })
 export default class ProductsComponent implements OnInit {
-  constructor( private fireBaseService: FireBaseService){}
-  products!: Product[];
+  private readonly productsService = inject(ProductsService);
+  public modalController = inject(ModalController);
+  products: Product[] | null = null;
   async ngOnInit() {
-    this.products = await this.fireBaseService.getAllProduct();
-    console.log(JSON.stringify(this.products));
+    this.products = await this.productsService.getAllProduct();
+  }
+
+  async openProductModal() {
+    const modal = await this.modalController.create({
+      component: ProductModalComponent,
+    });
+    return await modal.present();
   }
 }

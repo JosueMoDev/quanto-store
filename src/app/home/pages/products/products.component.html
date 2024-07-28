@@ -1,7 +1,21 @@
-<!-- src/app/components/my-component/my-component.component.html -->
-@for ( product of products; track product.id) {
-    <ul>
-    <app-product [product]="product" >
-    </app-product>
-  </ul>
-}
+<ion-grid>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Products</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="openProductModal()" fill="solid" color="dark">Add New Product</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-row>
+    @for ( product of products; track product.id) {
+    <ion-col sizeSm="2" sizeMd="2">
+      <app-product [product]="product"></app-product>
+    </ion-col>
+    }@empty {
+    <div class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+    }
+  </ion-row>
+</ion-grid>

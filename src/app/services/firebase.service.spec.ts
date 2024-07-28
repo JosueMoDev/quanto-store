@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FireBaseService } from './firebase.service';
+import { FireBaseService } from './products.service';
 
 describe('ProductsService', () => {
   let service: FireBaseService;

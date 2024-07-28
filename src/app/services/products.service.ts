@@ -1,5 +1,4 @@
-import {  Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import {  inject, Injectable } from '@angular/core';
 import { collection, collectionData, Firestore } from '@angular/fire/firestore';
 import { firstValueFrom, map, Observable } from 'rxjs';
 import { Product } from '../models/product.model';
@@ -7,8 +6,8 @@ import { Product } from '../models/product.model';
 @Injectable({
   providedIn: 'root',
 })
-export class FireBaseService {
-  constructor(private firestore: Firestore){}
+export class ProductsService {
+  private readonly firestore = inject(Firestore)
   async getAllProduct(): Promise<Product[]> {
    const productsCollection = collection(this.firestore, 'products');
    const productsObservable: Observable<Product[]> = collectionData(
