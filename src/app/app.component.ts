@@ -20,9 +20,12 @@ import {
   IonToolbar,
   IonButtons,
   IonTitle,
+  IonButton,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { basketOutline, basketSharp, cashOutline, cashSharp } from 'ionicons/icons';
+import { basketOutline, basketSharp, cartOutline, cashOutline, cashSharp } from 'ionicons/icons';
+import { ProductCartComponent } from './components/product-cart/product-cart.component';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -51,6 +54,8 @@ import { basketOutline, basketSharp, cashOutline, cashSharp } from 'ionicons/ico
     IonButtons,
     IonTitle,
     IonMenuButton,
+    ProductCartComponent,
+    IonButton
   ],
 })
 export class AppComponent {
@@ -58,12 +63,16 @@ export class AppComponent {
     { title: 'Products', url: '/home/products', icon: 'basket' },
     { title: 'Sales', url: '/home/sales', icon: 'cash' },
   ];
-  constructor() {
+  constructor(private menuCtrl: MenuController) {
     addIcons({
+      cartOutline,
       basketOutline,
       basketSharp,
       cashOutline,
-      cashSharp
+      cashSharp,
     });
+  }
+  openCartMenu() {
+    this.menuCtrl.open('cart-menu');
   }
 }
