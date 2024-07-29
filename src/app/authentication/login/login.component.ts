@@ -1,5 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { FormBuilder, FormGroup,ReactiveFormsModule,Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   IonButton,
   IonCard,
@@ -14,7 +16,10 @@ import {
   IonLabel,
   IonTitle,
   IonToolbar,
+  ToastController,
+  
 } from '@ionic/angular/standalone';
+import { AuthenticationService } from '@services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -30,21 +35,21 @@ import {
     IonLabel,
     IonInput,
     IonButton,
-    ReactiveFormsModule,
     IonCard,
     IonCardTitle,
     IonCardContent,
     IonCardHeader,
     IonInputPasswordToggle,
+    ReactiveFormsModule,
+    AngularFireAuthModule,
   ],
 })
-export default class LoginComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
-  public hide = true;
-  // private authenticationService = inject(AuthenticationService);
+export default class LoginComponent {
+  private authenticationService = inject(AuthenticationService);
   private formBuider = inject(FormBuilder);
+  private toastController = inject(ToastController);
+  private router = inject(Router);
+
   public loginForm: FormGroup = this.formBuider.group({
     email: [null, [Validators.required, Validators.email]],
     password: [null, [Validators.required, Validators.minLength(8)]],
@@ -57,8 +62,17 @@ export default class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
-  loginWithEmailAndPassword() {
-    console.log(this.loginForm.value)
-    
+  async loginWithEmailAndPassword() {
+    try {
+      await this.authenticationService.login(this.loginForm.value); 
+      this.router.navigateByUrl('/home/products')
+    } catch (error) {
+      const toast = await this.toastController.create({
+        message: 'Login failed. Please try again.',
+        duration: 2000,
+        color: 'danger',
+      });
+      toast.present();
+    }
   }
 }

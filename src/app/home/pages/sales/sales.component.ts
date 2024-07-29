@@ -6,10 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sales.component.scss'],
   standalone: true,
 })
-export default class SalesComponent  implements OnInit {
+export default class SalesComponent   {
 
   constructor() { }
-
-  ngOnInit() {}
 
 }

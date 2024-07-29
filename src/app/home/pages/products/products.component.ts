@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ModalController } from '@ionic/angular/standalone';
-import { ProductModalComponent } from 'src/app/components/product-modal/product-modal.component';
-import { ProductComponent } from 'src/app/components/product/product.component';
-import { Product } from 'src/app/models/product.model';
-import { ProductsService } from 'src/app/services/products.service';
+import { ProductModalComponent } from '@components/product-modal/product-modal.component';
+import { ProductComponent } from '@components/product/product.component';
+import { Product } from '@models/product.model';
+import { ProductsService } from '@services/products.service';
 
 @Component({
   selector: 'app-products',

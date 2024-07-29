@@ -14,6 +14,7 @@ import { ModalController } from '@ionic/angular/standalone';
 export class ProductModalComponent {
   private readonly firestore = inject(Firestore);
   public modalController = inject(ModalController);
+  
   private formBuider = inject(FormBuilder);
   public productForm: FormGroup = this.formBuider.group({
     name: ['', Validators.required],

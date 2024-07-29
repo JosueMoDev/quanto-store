@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import {addOutline, addSharp, cartOutline, removeOutline, removeSharp} from 'ionicons/icons'
+import {addOutline, cartOutline, removeOutline} from 'ionicons/icons'
 import { Product } from 'src/app/models/product.model';
 @Component({
   selector: 'app-product',

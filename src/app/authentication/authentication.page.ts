@@ -8,10 +8,8 @@ import { IonRouterOutlet } from '@ionic/angular/standalone';
   standalone: true,
   imports:[IonRouterOutlet]
 })
-export default class AuthenticationPage  implements OnInit {
+export default class AuthenticationPage  {
 
   constructor() { }
-
-  ngOnInit() {}
 
 }

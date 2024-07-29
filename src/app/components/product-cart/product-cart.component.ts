@@ -10,7 +10,7 @@ import { ProductCartService } from 'src/app/services/product-cart.service';
   standalone: true,
   imports: [IonicModule, CommonModule],
 })
-export class ProductCartComponent {
+export class ProductCartComponent implements OnInit{
   cartItems: any = [];
   subtotal = 0;
   tax = 0;

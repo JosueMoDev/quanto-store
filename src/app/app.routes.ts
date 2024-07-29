@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { IsAuthenticationGuard } from '@guards/isAuthentication.guard';
+import { IsNotAuthenticationGuard } from '@guards/isNotAuthentication.guard';
 
 export const routes: Routes = [
   {
@@ -8,6 +10,7 @@ export const routes: Routes = [
   },
   {
     path: 'home',
+    canActivate: [IsAuthenticationGuard],
     loadComponent: () => import('./home/home.page'),
     children: [
       {
@@ -22,11 +25,13 @@ export const routes: Routes = [
   },
   {
     path: 'authentication',
+    canActivate: [IsNotAuthenticationGuard],
     loadComponent: () => import('./authentication/authentication.page'),
     children: [
       {
         path: 'register',
-        loadComponent: () => import('./authentication/register/register.component'),
+        loadComponent: () =>
+          import('./authentication/register/register.component'),
       },
       {
         path: 'login',
