@@ -55,13 +55,6 @@ export default class LoginComponent {
     password: [null, [Validators.required, Validators.minLength(8)]],
   });
 
-  get email() {
-    return this.loginForm.get('email');
-  }
-  get password() {
-    return this.loginForm.get('password');
-  }
-
   async loginWithEmailAndPassword() {
     try {
       await this.authenticationService.login(this.loginForm.value); 
