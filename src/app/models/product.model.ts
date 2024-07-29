@@ -1,5 +1,5 @@
 export interface ProductOptions {
-    id: string;  
+  id: string;  
   name: string;
   photoUrl: string;
   state: boolean;
