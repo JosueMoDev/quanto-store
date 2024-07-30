@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, OnInit } from '@angular/core';
 import { IonicModule, MenuController } from '@ionic/angular';
 import { Cart, ProductCartService } from 'src/app/services/product-cart.service';
 
@@ -20,12 +20,16 @@ export class ProductCartComponent implements OnInit {
   constructor(
     private cartService: ProductCartService,
     private menuCtrl: MenuController
-  ) {}
+  ) {
+    effect(() => {
+      this.cartItems = this.cartService.getCart();
+      console.log('hola')
+      this.calculateTotalItem()
+    })
+  }
 
   ngOnInit() {
-    this.cartItems = this.cartService.getCart();
     this.calculateTotalItem();
-  
   }
 
   closeMenu() {

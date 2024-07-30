@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Product } from '@models/product.model';
 export interface Cart {
   product: Product;
@@ -9,17 +9,18 @@ export interface Cart {
 })
 export class ProductCartService {
   constructor() {}
-  private cart: Cart[] = [];
+  private _cart =  signal<Cart[]>([]);
 
   addToCart(item: Cart) {
-    this.cart.push(item) ;
+    this._cart.set([...this._cart(), item]) ;
   }
 
   getCart() {
-    return this.cart;
+    return this._cart();
   }
 
   clearCart() {
-    this.cart = [];
+    this._cart.set([]);
   }
+  
 }
