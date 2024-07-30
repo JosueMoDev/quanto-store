@@ -8,6 +8,7 @@ import { ProductCartComponent } from './components/product-cart/product-cart.com
 import { IonicModule } from '@ionic/angular';
 import { AuthenticationService } from '@services/authentication.service';
 import { User } from '@models/user.model';
+import { ProductCartService } from 'src/app/services/product-cart.service';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,11 @@ import { User } from '@models/user.model';
 })
 export class AppComponent {
   readonly #authenticationService = inject(AuthenticationService);
+  readonly #cartService = inject(ProductCartService);
+
+  cartCounter!: number | null;
   userAuthenticated!: User | null;
+
   public appPages = [
     { title: 'Products', url: '/home/products', icon: 'basket' },
     { title: 'Sales', url: '/home/sales', icon: 'cash' },
@@ -40,8 +45,9 @@ export class AppComponent {
       logOutOutline,
       menuOutline
     });
-
+    
     effect(() => {
+      this.cartCounter = this.#cartService._cartCounter()
       this.userAuthenticated = this.#authenticationService._currentUserLogged();
     });
   }

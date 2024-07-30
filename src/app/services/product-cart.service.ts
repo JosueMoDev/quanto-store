@@ -9,10 +9,22 @@ export interface Cart {
 })
 export class ProductCartService {
   constructor() {}
-  private _cart =  signal<Cart[]>([]);
+  private _cart = signal<Cart[]>([]);
+  _cartCounter = signal<number|null>(null)
 
   addToCart(item: Cart) {
-    this._cart.set([...this._cart(), item]) ;
+    this._cart.set([...this._cart(), item]);
+    this.getCartCounter();
+    console.log(this._cartCounter())
+  }
+
+  getCartCounter() {
+    const totalItemQuantity = this._cart().reduce(
+      (total, product) => total + product.quantity,
+      0
+    );
+    this._cartCounter.set(totalItemQuantity);
+    return this._cartCounter();
   }
 
   getCart() {

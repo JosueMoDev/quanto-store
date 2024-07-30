@@ -19,7 +19,6 @@ export class ProductCartComponent implements OnInit {
   totalGlobal = 0;
   constructor(
     private cartService: ProductCartService,
-    private menuCtrl: MenuController
   ) {
     effect(() => {
       this.cartItems = this.cartService.getCart();
@@ -31,9 +30,7 @@ export class ProductCartComponent implements OnInit {
     this.calculateTotalItem();
   }
 
-  closeMenu() {
-    this.menuCtrl.close('end'); // Cierra el menú lateral
-  }
+  
 
   calculateTotalItem() {
     this.subtotal = this.cartItems.reduce(

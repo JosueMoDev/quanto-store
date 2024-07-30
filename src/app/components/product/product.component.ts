@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { MenuController } from '@ionic/angular/standalone';
 import { ProductCartService } from '@services/product-cart.service';
 import { addIcons } from 'ionicons';
 import {addOutline, cartOutline, removeOutline} from 'ionicons/icons'
@@ -14,6 +15,7 @@ import { Product } from 'src/app/models/product.model';
 })
 export class ProductComponent {
   private readonly productCartService = inject(ProductCartService)
+  private menuCtrl = inject(MenuController)
   constructor() {
     addIcons({ addOutline, removeOutline, cartOutline });
   }
@@ -36,5 +38,6 @@ export class ProductComponent {
       product:this.product,
       quantity: this.quantity,
     });
+    this.menuCtrl.open('right-menu'); 
   }
 }

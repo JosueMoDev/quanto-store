@@ -18,7 +18,14 @@
 
         <ion-menu-toggle menuId="end-menu"> </ion-menu-toggle>
         <ion-menu-toggle menu="right-menu">
-          <ion-button><ion-icon name="cart-outline"></ion-icon></ion-button>
+          <ion-button>
+            <ion-icon name="cart-outline"></ion-icon>
+            @if(cartCounter){
+              <ion-badge color="danger" style="position: absolute; top: -10px; right: -10px;">
+                {{ cartCounter }}
+              </ion-badge>
+            }
+          </ion-button>
         </ion-menu-toggle>
       </ion-buttons>
     </ion-toolbar>
