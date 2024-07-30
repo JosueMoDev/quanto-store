@@ -2,7 +2,8 @@
   <ion-toolbar>
     <ion-title>Products</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="openProductModal()" fill="solid" color="dark">Add New Product</ion-button>
+      <ion-button (click)="openProductModal()" fill="solid" color="dark"><ion-icon name="add-outline"/>New Product</ion-button>
+      <ion-button  routerDirection="root" [routerLink]="'/home/actions'" fill="solid" color="dark"><ion-icon name="options-outline"/> Admin products</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

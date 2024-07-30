@@ -6,26 +6,31 @@ import { ProductModalComponent } from '@components/product-modal/product-modal.c
 import { ProductComponent } from '@components/product/product.component';
 import { Product } from '@models/product.model';
 import { ProductsService } from '@services/products.service';
+import { addIcons } from 'ionicons';
+import { addOutline, optionsOutline } from 'ionicons/icons';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   standalone: true,
   styleUrls: ['./products.component.scss'],
-  imports: [ProductComponent, CommonModule, IonicModule],
+  imports: [ProductComponent, CommonModule, IonicModule, RouterLink],
 })
-export default class ProductsComponent {
+export default class ProductsComponent  {
   private readonly productsService = inject(ProductsService);
   public modalController = inject(ModalController);
-  products: Product[] | [] = [];
+  products: Product[]  = [];
   
   constructor() {
-    this.productsService.getAllProduct();
+    console.log('Cambiando Page');
+    this.productsService.getAllProduct('active');
     effect(() => {
       this.products = this.productsService._productsList();
     });
+    addIcons({addOutline, optionsOutline})
   }
-
+ 
   async openProductModal() {
     const modal = await this.modalController.create({
       component: ProductModalComponent,

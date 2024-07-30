@@ -21,6 +21,10 @@ export const routes: Routes = [
         path: 'sales',
         loadComponent: () => import('./home/pages/sales/sales.component'),
       },
+      {
+        path: 'actions',
+        loadComponent: () => import('./home/pages/product-actions/product-actions.component'),
+      },
     ],
   },
   {

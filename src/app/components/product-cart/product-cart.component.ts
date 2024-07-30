@@ -23,7 +23,6 @@ export class ProductCartComponent implements OnInit {
   ) {
     effect(() => {
       this.cartItems = this.cartService.getCart();
-      console.log('hola')
       this.calculateTotalItem()
     })
   }

@@ -1,7 +1,5 @@
 
-
-<div>
-  <ion-list class="ion-list">
+<ion-list class="ion-list">
     @for ( item of cartItems; track $index) {
       @let product = item.product;
       <ion-item >
@@ -32,5 +30,4 @@
       <ion-label slot="end">{{ total | currency }}</ion-label>
     </ion-item>
   </ion-footer>
-</div>
 

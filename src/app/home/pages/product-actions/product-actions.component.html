@@ -1,0 +1,21 @@
+<ion-list>
+  @for (product of products; track product.id) {
+    <ion-item>
+    <ion-thumbnail slot="start">
+      <img [src]="product.photoUrl">
+    </ion-thumbnail>
+    <ion-label>
+      <h2>{{ product.name }}</h2>
+      <p>${{ product.price }}</p>
+    </ion-label>
+    <ion-button (click)="openEditModal(product)" fill="solid" color="dark" slot="end">
+      <ion-icon name="pencil-outline"></ion-icon>
+      Edit
+    </ion-button>
+    <ion-button (click)="changeProductState(product)" fill="solid" slot="end" [color]="product.state ? 'danger' : 'success'">
+      <ion-icon [name]="!product.state ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
+      {{!product.state ? 'show' : 'hidde'}}
+    </ion-button>
+  </ion-item>
+}
+</ion-list>
