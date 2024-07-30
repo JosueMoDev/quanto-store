@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ModalController } from '@ionic/angular/standalone';
 import { ProductModalComponent } from '@components/product-modal/product-modal.component';
@@ -14,13 +14,16 @@ import { ProductsService } from '@services/products.service';
   styleUrls: ['./products.component.scss'],
   imports: [ProductComponent, CommonModule, IonicModule],
 })
-export default class ProductsComponent implements OnInit {
+export default class ProductsComponent {
   private readonly productsService = inject(ProductsService);
   public modalController = inject(ModalController);
   products: Product[] | [] = [];
-  async ngOnInit() {
-    this.products = await this.productsService.getAllProduct();
-    
+  
+  constructor() {
+    this.productsService.getAllProduct();
+    effect(() => {
+      this.products = this.productsService._productsList();
+    });
   }
 
   async openProductModal() {

@@ -19,5 +19,6 @@ bootstrapApplication(AppComponent, {
     provideFirestore(() => getFirestore()),
     provideHttpClient(),
     provideAuth(() => getAuth()),
+    
   ],
 }).catch((err) => console.error(err));

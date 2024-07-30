@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { addDoc, collection, Firestore} from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ModalController } from '@ionic/angular/standalone';
+import { ProductsService } from '@services/products.service';
 
 @Component({
   selector: 'app-product-modal',
@@ -12,9 +12,8 @@ import { ModalController } from '@ionic/angular/standalone';
   imports: [IonicModule, ReactiveFormsModule],
 })
 export class ProductModalComponent {
-  private readonly firestore = inject(Firestore);
   public modalController = inject(ModalController);
-  
+  private productsService = inject(ProductsService)
   private formBuider = inject(FormBuilder);
   public productForm: FormGroup = this.formBuider.group({
     name: ['', Validators.required],
@@ -29,14 +28,11 @@ export class ProductModalComponent {
     this.modalController.dismiss();
   }
 
-  async onSubmit() {
+  onSubmit() {
     if (this.productForm.valid) {
-      const { name, price, photoUrl, state } = this.productForm.value;
-
       try {
-        const productsCollection = collection(this.firestore, 'products');
-        await addDoc(productsCollection, { name, price, photoUrl, state });
-        this.modalController.dismiss();
+        this.productsService.createNewProduct(this.productForm.value)
+        this.close();
       } catch (error) {
         console.error('Error adding product: ', error);
       }
