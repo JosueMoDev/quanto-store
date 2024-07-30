@@ -3,7 +3,7 @@ import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 import { addIcons } from 'ionicons';
-import { basketOutline, basketSharp, cartOutline, cashOutline, cashSharp, logOutOutline } from 'ionicons/icons';
+import { basketOutline, basketSharp, cartOutline, cashOutline, cashSharp, logOutOutline, menuOutline } from 'ionicons/icons';
 import { ProductCartComponent } from './components/product-cart/product-cart.component';
 import { IonicModule } from '@ionic/angular';
 import { AuthenticationService } from '@services/authentication.service';
@@ -38,6 +38,7 @@ export class AppComponent {
       cashOutline,
       cashSharp,
       logOutOutline,
+      menuOutline
     });
 
     effect(() => {

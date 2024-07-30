@@ -1,40 +1,36 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Carrito</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="closeMenu()">Cerrar</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-item *ngFor="let item of cartItems">
-      <ion-thumbnail slot="start">
-        <img [src]="item.image" alt="Product Image" />
-      </ion-thumbnail>
-      <ion-label>
-        <h2>{{ item.name }}</h2>
-        <p>Precio: \${{ item.price | number:'1.2-2' }}</p>
-        <p>Cantidad: {{ item.quantity }}</p>
-        <p>Total: \${{ (item.price * item.quantity) | number:'1.2-2' }}</p>
-      </ion-label>
-    </ion-item>
+
+<div>
+  <ion-list class="ion-list">
+    @for ( item of cartItems; track $index) {
+      @let product = item.product;
+      <ion-item >
+        <ion-thumbnail slot="start">
+          <img [src]="item.product.photoUrl" alt="Product Image" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ product.name }}</h2>
+          <p>Precio: {{ product.price| currency }}</p>
+          <p>Cantidad: {{ item.quantity }}</p>
+          <p>Total: {{ (product.price * item.quantity) | currency }}</p>
+        </ion-label>
+      </ion-item>
+    }
   </ion-list>
 
-  <ion-footer>
+  <ion-footer class="ion-footer">
     <ion-item>
       <ion-label>Subtotal</ion-label>
-      <ion-label slot="end">\${{ subtotal | number:'1.2-2' }}</ion-label>
+      <ion-label slot="end">{{ subtotal | currency }}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label>Impuesto (13%)</ion-label>
-      <ion-label slot="end">\${{ tax | number:'1.2-2' }}</ion-label>
+      <ion-label slot="end">{{ tax | currency }}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label>Total</ion-label>
-      <ion-label slot="end">\${{ total | number:'1.2-2' }}</ion-label>
+      <ion-label slot="end">{{ total | currency }}</ion-label>
     </ion-item>
   </ion-footer>
-</ion-content>
+</div>
 

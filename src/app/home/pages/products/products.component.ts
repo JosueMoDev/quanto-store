@@ -32,4 +32,5 @@ export default class ProductsComponent {
     });
     return await modal.present();
   }
+  
 }

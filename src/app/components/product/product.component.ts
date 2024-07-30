@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { ProductCartService } from '@services/product-cart.service';
 import { addIcons } from 'ionicons';
 import {addOutline, cartOutline, removeOutline} from 'ionicons/icons'
 import { Product } from 'src/app/models/product.model';
@@ -12,7 +13,7 @@ import { Product } from 'src/app/models/product.model';
   imports: [IonicModule, CommonModule],
 })
 export class ProductComponent {
-
+  private readonly productCartService = inject(ProductCartService)
   constructor() {
     addIcons({ addOutline, removeOutline, cartOutline });
   }
@@ -31,9 +32,9 @@ export class ProductComponent {
   }
 
   addToCart() {
-      console.log('Product added to cart:', {
-        ...this.product,
-        quantity: this.quantity,
-      });
+    this.productCartService.addToCart({
+      product:this.product,
+      quantity: this.quantity,
+    });
   }
 }
