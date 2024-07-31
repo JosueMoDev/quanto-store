@@ -7,7 +7,7 @@ import { ProductComponent } from '@components/product/product.component';
 import { Product } from '@models/product.model';
 import { ProductsService } from '@services/products.service';
 import { addIcons } from 'ionicons';
-import { addOutline, optionsOutline } from 'ionicons/icons';
+import { addOutline, optionsOutline, removeOutline } from 'ionicons/icons';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -23,12 +23,11 @@ export default class ProductsComponent  {
   products: Product[]  = [];
   
   constructor() {
-    console.log('Cambiando Page');
     this.productsService.getAllProduct('active');
     effect(() => {
       this.products = this.productsService._productsList();
     });
-    addIcons({addOutline, optionsOutline})
+    addIcons({addOutline, optionsOutline, removeOutline})
   }
  
   async openProductModal() {

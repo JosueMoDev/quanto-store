@@ -12,6 +12,9 @@
           <p>Cantidad: {{ item.quantity }}</p>
           <p>Total: {{ (product.price * item.quantity) | currency }}</p>
         </ion-label>
+        <ion-button class="remove-button"  fill="clear"  slot="end" (click)="removeItemFromCart(product)">
+           <ion-icon name="remove-outline" color="dark"></ion-icon>
+        </ion-button>
       </ion-item>
     }
   </ion-list>

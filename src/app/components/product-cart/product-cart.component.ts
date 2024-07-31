@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, OnInit } from '@angular/core';
-import { IonicModule, MenuController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
+import { Product } from '@models/product.model';
 import { Cart, ProductCartService } from 'src/app/services/product-cart.service';
 
 @Component({
@@ -24,6 +25,10 @@ export class ProductCartComponent implements OnInit {
       this.cartItems = this.cartService.getCart();
       this.calculateTotalItem()
     })
+  }
+
+  removeItemFromCart(product: Product) {
+    return this.cartService.removeFromCart(product)
   }
 
   ngOnInit() {

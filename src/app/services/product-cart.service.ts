@@ -9,13 +9,24 @@ export interface Cart {
 })
 export class ProductCartService {
   constructor() {}
-  private _cart = signal<Cart[]>([]);
-  _cartCounter = signal<number|null>(null)
+  private _cart = signal<Cart[]|[]>(this.getFromLocalStorage());
+  _cartCounter = signal<number | null>(null);
 
-  addToCart(item: Cart) {
-    this._cart.set([...this._cart(), item]);
+  addToCart({ product, quantity }: Cart) {
+    const currentProducts = this._cart();
+    const existingProduct = currentProducts.find(
+      (item) => item.product.id === product.id
+    );
+    if (existingProduct) {
+      existingProduct.quantity += quantity;
+      this._cart.set([...currentProducts]);
+      this.getCartCounter();
+      this.saveCartItemsOnLocalStorage();
+      return;
+    }
+    this._cart.set([...currentProducts, { product, quantity }]);
     this.getCartCounter();
-    console.log(this._cartCounter())
+    this.saveCartItemsOnLocalStorage();
   }
 
   getCartCounter() {
@@ -27,12 +38,39 @@ export class ProductCartService {
     return this._cartCounter();
   }
 
+  removeFromCart(product: Product) {
+    const currentProducts = this._cart();
+    const filteredCartItems = currentProducts.filter(
+      (item) => item.product.id !== product.id
+    );
+    this._cart.set(filteredCartItems);
+    this.getCartCounter();
+    this.saveCartItemsOnLocalStorage();
+    if (this.getCartCounter() === 0) {
+      this.removeCartFromLocalStorage();
+    }
+  }
+
+  saveCartItemsOnLocalStorage() {
+    localStorage.setItem('cartItems', JSON.stringify(this._cart()));
+  }
+
+  removeCartFromLocalStorage() {
+    localStorage.removeItem('cartItems');
+  }
+
+  getFromLocalStorage(): Cart[]  {
+    const cart = localStorage.getItem('cartItems');
+    return cart ? JSON.parse(cart) : [];
+
+  }
+
   getCart() {
     return this._cart();
   }
 
   clearCart() {
     this._cart.set([]);
+    this.removeCartFromLocalStorage();
   }
-  
 }
