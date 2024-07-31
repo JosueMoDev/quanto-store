@@ -6,5 +6,5 @@ import { ProductCartService } from './product-cart.service';
 })
 export class SalesService {
   #productCartService = inject(ProductCartService);
-  cartItems = this.#productCartService.getCart()
+  cartItems = this.#productCartService.getCheckoutDetails()
 }

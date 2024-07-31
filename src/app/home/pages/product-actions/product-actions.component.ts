@@ -14,20 +14,20 @@ import { eyeOffOutline, eyeOutline, pencilOutline } from 'ionicons/icons';
   imports: [IonicModule],
 })
 export default class ProductActionsComponent {
-  private readonly productsService = inject(ProductsService);
-  public modalController = inject(ModalController);
+  readonly #productsService = inject(ProductsService);
+  readonly #modalController = inject(ModalController);
   products!: Product[] | [];
   
   constructor() {
-    this.productsService.getAllProduct('all');
+    this.#productsService.getAllProduct('all');
     effect(() => {
-      this.products = this.productsService._productsList();
+      this.products = this.#productsService._productsList();
     });
     addIcons({eyeOutline, eyeOffOutline, pencilOutline})
   }
 
   async openEditModal(product: Product) {
-    const modal = await this.modalController.create({
+    const modal = await this.#modalController.create({
       component: ProductModalComponent,
       componentProps: { product },
     });
@@ -35,6 +35,6 @@ export default class ProductActionsComponent {
   }
 
   changeProductState(product: Product) {
-    this.productsService.changeProductState(product);
+    this.#productsService.changeProductState(product);
   }
 }

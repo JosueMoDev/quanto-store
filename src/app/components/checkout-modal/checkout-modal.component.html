@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Pagar Order</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-margin">
+  <ion-list class="ion-list">
+    @let cartItems = checkoutDetails.cartItems; @for (item of cartItems; track
+    item.product.id ) {
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img [src]="item.product.photoUrl" alt="Product Image" />
+      </ion-thumbnail>
+      <ion-label class="product-info">
+        <div class="product-details">
+          <h2>{{ item.product.name }}</h2>
+          <p>{{ item.product.price | currency }} x {{ item.quantity }}</p>
+          <p>agrabado: {{ item.product.price * item.quantity | currency }}</p>
+        </div>
+        <p>ID: {{ item.product.id }}</p>
+      </ion-label>
+    </ion-item>
+    }
+  </ion-list>
+</ion-content>
+<ion-footer class="ion-footer">
+  <ion-item>
+    <ion-label>Subtotal</ion-label>
+    <ion-label slot="end">{{ checkoutDetails.subtotal | currency }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>Impuesto (13%)</ion-label>
+    <ion-label slot="end">{{ checkoutDetails.tax | currency }}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>Total a pagar</ion-label>
+    <ion-label slot="end">{{ checkoutDetails.total | currency }}</ion-label>
+  </ion-item>
+  <ion-button
+    (click)="payCart()"
+    fill="solid"
+    expand="full"
+    color="dark"
+    [disabled]="checkoutDetails.total === 0"
+  >
+    CheckOut
+  </ion-button>
+</ion-footer>

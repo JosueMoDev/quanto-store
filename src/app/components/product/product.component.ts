@@ -14,8 +14,8 @@ import { Product } from 'src/app/models/product.model';
   imports: [IonicModule, CommonModule],
 })
 export class ProductComponent {
-  private readonly productCartService = inject(ProductCartService)
-  private menuCtrl = inject(MenuController)
+  readonly #productCartService = inject(ProductCartService)
+  readonly #menuCtrl = inject(MenuController)
   constructor() {
     addIcons({ addOutline, removeOutline, cartOutline });
   }
@@ -34,10 +34,10 @@ export class ProductComponent {
   }
 
   addToCart() {
-    this.productCartService.addToCart({
+    this.#productCartService.addToCart({
       product:this.product,
       quantity: this.quantity,
     });
-    this.menuCtrl.open('right-menu'); 
+    this.#menuCtrl.open('right-menu'); 
   }
 }

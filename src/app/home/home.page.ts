@@ -27,11 +27,11 @@ import {
   ],
 })
 export default class HomePage implements OnInit {
+  readonly #activatedRoute = inject(ActivatedRoute);
   public page!: string;
-  private activatedRoute = inject(ActivatedRoute);
   constructor() {}
 
   ngOnInit() {
-    this.page = this.activatedRoute.snapshot.paramMap.get('id') as string;
+    this.page = this.#activatedRoute.snapshot.paramMap.get('id') as string;
   }
 }

@@ -16,8 +16,8 @@ export interface CheckoutDetails {
   providedIn: 'root',
 })
 export class ProductCartService {
-  #cartItems = signal<CartItems[] | []>([]);
-  #cartCounter = signal<number>(0);
+  #cartItems = signal<CartItems[] | []>(this.#getChechoutDetailsFromLocalStorage().cartItems);
+  #cartCounter = signal<number>(this.#getChechoutDetailsFromLocalStorage().cartCounter);
   #checkOutDatails = signal<CheckoutDetails>(this.#getChechoutDetailsFromLocalStorage());
   #taxRate = 0.13;
 
@@ -59,16 +59,13 @@ export class ProductCartService {
   }
 
   #saveCheckoutDetailsOnLocalStorage() {
-    this.#getCartItems(),
-    this.#getCartCounter(),
-    this.#calculateCheckoutDetails()
+    
     const checkoutDetails: CheckoutDetails = {
       cartItems: this.#getCartItems(),
       cartCounter: this.#getCartCounter(),
       ...this.#calculateCheckoutDetails()
     }
     this.#checkOutDatails.set(checkoutDetails);
-    console.log(this.#checkOutDatails())
     localStorage.setItem('checkoutDetails', JSON.stringify(checkoutDetails));
   }
 
@@ -92,8 +89,16 @@ export class ProductCartService {
     return this.#cartItems();
   }
 
-  clearCheckoutDetails(){
-    this.#cartItems.set([]);
+  clearCheckoutDetails() {
+    this.#checkOutDatails.set({
+      cartItems: [],
+      cartCounter: 0,
+      tax: 0,
+      subtotal: 0,
+      total: 0,
+    });
+    this.#cartItems.set([])
+    this.#cartCounter.set(0)
     this.#removeCheckoutDetailsFromLocalStorage();
   }
 

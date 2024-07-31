@@ -14,8 +14,8 @@ import { CartItems, ProductCartService } from 'src/app/services/product-cart.ser
   imports: [IonicModule, CommonModule],
 })
 export class ProductCartComponent  {
-  cartItems: CartItems[] = [];
   #cartService = inject(ProductCartService);
+  cartItems: CartItems[] = [];
  
   constructor() {
     effect(() => {

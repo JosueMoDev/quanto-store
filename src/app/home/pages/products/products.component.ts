@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, inject } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
-import { ModalController } from '@ionic/angular/standalone';
+import { IonicModule, ModalController } from '@ionic/angular';
 import { ProductModalComponent } from '@components/product-modal/product-modal.component';
 import { ProductComponent } from '@components/product/product.component';
 import { Product } from '@models/product.model';
@@ -18,21 +17,22 @@ import { RouterLink } from '@angular/router';
   imports: [ProductComponent, CommonModule, IonicModule, RouterLink],
 })
 export default class ProductsComponent  {
-  private readonly productsService = inject(ProductsService);
-  public modalController = inject(ModalController);
+  readonly #productsService = inject(ProductsService);
+  readonly #modalController = inject(ModalController);
   products: Product[]  = [];
   
   constructor() {
-    this.productsService.getAllProduct('active');
+    this.#productsService.getAllProduct('active');
     effect(() => {
-      this.products = this.productsService._productsList();
+      this.products = this.#productsService._productsList();
     });
     addIcons({addOutline, optionsOutline, removeOutline})
   }
  
   async openProductModal() {
-    const modal = await this.modalController.create({
+    const modal = await this.#modalController.create({
       component: ProductModalComponent,
+      
     });
     return await modal.present();
   }

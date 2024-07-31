@@ -14,13 +14,13 @@ import { ProductsService } from '@services/products.service';
 })
 export class ProductModalComponent implements OnInit {
   @Input() product!: Product;
-  public modalController = inject(ModalController);
-  private productsService = inject(ProductsService);
-  private formBuilder = inject(FormBuilder);
+  #modalController = inject(ModalController);
+  #productsService = inject(ProductsService);
+  #formBuilder = inject(FormBuilder);
   public productForm!: FormGroup;
   
   ngOnInit(): void {
-    this.productForm = this.formBuilder.group({
+    this.productForm = this.#formBuilder.group({
       id: [this.product?.id ?? undefined],
       name: [this.product?.name ?? '', Validators.required],
       price: [
@@ -32,17 +32,17 @@ export class ProductModalComponent implements OnInit {
     });
   }
   close() {
-    this.modalController.dismiss();
+    this.#modalController.dismiss();
   }
 
   onSubmit() {
     if (this.productForm.valid) {
       try {
         if (this.product) {
-          this.productsService.updateProduct(this.productForm.value);
+          this.#productsService.updateProduct(this.productForm.value);
         }
         if (!this.product) {
-          this.productsService.createNewProduct(this.productForm.value);
+          this.#productsService.createNewProduct(this.productForm.value);
         }
         this.close();
       } catch (error) {

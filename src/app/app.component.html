@@ -89,7 +89,9 @@
         <ion-label>Total</ion-label>
         <ion-label slot="end">{{ checkoutDetails.total | currency }}</ion-label>
       </ion-item>
-      <ion-button fill="solid" expand="full" color="dark" [disabled]="checkoutDetails.total===0">CheckOut</ion-button>
+      <ion-button (click)="checkoutModal()" fill="solid" expand="full" color="dark" [disabled]="checkoutDetails.total===0">
+        CheckOut
+      </ion-button>
     </ion-footer>
   </ion-menu>
   }

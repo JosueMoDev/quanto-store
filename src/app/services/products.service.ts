@@ -19,25 +19,23 @@ type Filter = 'all' | 'active' | 'inactive';
   providedIn: 'root',
 })
 export class ProductsService {
-  private readonly firestore = inject(Firestore);
-
+  readonly #firestore = inject(Firestore);
   _productsList = signal<Product[] | []>([]);
-
-  private getProductsQuery!:
+  #getProductsQuery!:
     | CollectionReference<DocumentData>
     | Query<DocumentData>;
 
   async getAllProduct(sort?: Filter): Promise<Product[]> {
-    this.getProductsQuery = collection(this.firestore, 'products');
+    this.#getProductsQuery = collection(this.#firestore, 'products');
     if (sort === 'active') {
-      this.getProductsQuery = query(
-        this.getProductsQuery,
+      this.#getProductsQuery = query(
+        this.#getProductsQuery,
         where('state', '==', true)
       );
     }
     
     const productsObservable: Observable<Product[]> = collectionData(
-      this.getProductsQuery,
+      this.#getProductsQuery,
       { idField: 'id' }
     ).pipe(map((data) => data as Product[]));
     const productsList = await firstValueFrom(productsObservable);
@@ -46,7 +44,7 @@ export class ProductsService {
   }
 
   async createNewProduct(product: Product) {
-    const productsCollection = collection(this.firestore, 'products');
+    const productsCollection = collection(this.#firestore, 'products');
     const productSave = await addDoc(productsCollection, product);
     console.log(productSave);
     this.getAllProduct();
@@ -54,14 +52,14 @@ export class ProductsService {
   }
 
   async changeProductState({ id, state }: Product) {
-    const productDoc = doc(this.firestore, `products/${id}`);
+    const productDoc = doc(this.#firestore, `products/${id}`);
     await updateDoc(productDoc, { state: !state });
     this.getAllProduct()
   }
 
   async updateProduct(product: Product) {
     const { id, state, ...rest } = product;
-    const productDoc = doc(this.firestore, `products/${id}`);
+    const productDoc = doc(this.#firestore, `products/${id}`);
     await updateDoc(productDoc, rest);
     this.getAllProduct();
   }
