@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, OnInit } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { Product } from '@models/product.model';
-import { Cart, ProductCartService } from 'src/app/services/product-cart.service';
+import { addIcons } from 'ionicons';
+import { carOutline, removeOutline } from 'ionicons/icons';
+import { CartItems, ProductCartService } from 'src/app/services/product-cart.service';
 
 @Component({
   selector: 'app-product-cart',
@@ -11,39 +13,18 @@ import { Cart, ProductCartService } from 'src/app/services/product-cart.service'
   standalone: true,
   imports: [IonicModule, CommonModule],
 })
-export class ProductCartComponent implements OnInit {
-  cartItems: Cart[] = [];
-  subtotal = 0;
-  tax = 0;
-  total = 0;
-  taxRate = 0.13;
-  totalGlobal = 0;
-  constructor(
-    private cartService: ProductCartService,
-  ) {
+export class ProductCartComponent  {
+  cartItems: CartItems[] = [];
+  #cartService = inject(ProductCartService);
+ 
+  constructor() {
     effect(() => {
-      this.cartItems = this.cartService.getCart();
-      this.calculateTotalItem()
+      this.cartItems = this.#cartService.getCheckoutDetails().cartItems;
     })
+    addIcons({removeOutline, carOutline})
   }
 
   removeItemFromCart(product: Product) {
-    return this.cartService.removeFromCart(product)
+    return this.#cartService.removeFromCart(product)
   }
-
-  ngOnInit() {
-    this.calculateTotalItem();
-  }
-
-  
-
-  calculateTotalItem() {
-    this.subtotal = this.cartItems.reduce(
-      (acc: any, item: Cart) => acc + item.product.price * item.quantity,
-      0
-    );
-    this.tax = this.subtotal * this.taxRate;
-    this.total = this.subtotal + this.tax;
-  }
-
 }
