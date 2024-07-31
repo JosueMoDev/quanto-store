@@ -1,3 +1,42 @@
-<p>
-  sales works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sales</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="2"><strong>ID</strong></ion-col>
+      <ion-col size="2"><strong>Total</strong></ion-col>
+      <ion-col size="2"><strong>Subtotal</strong></ion-col>
+      <ion-col size="2"><strong>Tax</strong></ion-col>
+      <ion-col size="2"><strong>Created At</strong></ion-col>
+      <ion-col size="2"><strong>Acciones</strong></ion-col>
+    </ion-row>
+    @for( sale of saleList; track sale.id ){
+    <ion-row>
+      <ion-col size="2">{{ sale.id }}</ion-col>
+      <ion-col size="2">{{ sale.total | currency }}</ion-col>
+      <ion-col size="2">{{ sale.subTotal | currency }}</ion-col>
+      <ion-col size="2">{{ sale.tax | currency }}</ion-col>
+      <ion-col size="2">{{
+        sale.createdAt.toDate() | date : "medium"
+      }}</ion-col>
+      <ion-col size="2">
+        <ion-button (click)="showSaleDetails(sale)" fill="solid" color="dark">
+          <ion-icon name="receipt-outline"></ion-icon>
+          Show details
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    }@empty {
+    <div>
+      <h1>
+        <ion-icon name="receipt-outline"></ion-icon>
+        <ion-label> Sales list empty</ion-label>
+      </h1>
+    </div>
+    }
+  </ion-grid>
+</ion-content>

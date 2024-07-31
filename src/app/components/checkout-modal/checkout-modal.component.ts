@@ -1,7 +1,8 @@
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { CheckoutDetails, ProductCartService } from '@services/product-cart.service';
+import { SalesService } from '@services/sales.service';
 import { ModalController } from '@ionic/angular/standalone';
 
 @Component({
@@ -13,19 +14,17 @@ import { ModalController } from '@ionic/angular/standalone';
 })
 export class CheckoutModalComponent {
   readonly #cartService = inject(ProductCartService);
+  readonly #salesService = inject(SalesService);
   readonly #modalController = inject(ModalController);
 
   checkoutDetails!: CheckoutDetails;
   constructor() {
     this.checkoutDetails = this.#cartService.getCheckoutDetails();
-    effect(() => {
-
-    });
+    effect(() => {});
   }
 
   async payCart() {
+    await this.#salesService.createNewSale(this.checkoutDetails);
     await this.#modalController.dismiss();
-    this.#cartService.clearCheckoutDetails();
-
   }
 }

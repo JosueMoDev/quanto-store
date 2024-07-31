@@ -8,7 +8,7 @@ export interface CartItems {
 export interface CheckoutDetails { 
   cartItems: CartItems[],
   cartCounter: number,
-  subtotal: number;
+  subTotal: number;
   tax: number;
   total: number;
 }
@@ -79,7 +79,7 @@ export class ProductCartService {
       cartItems: [],
       cartCounter: 0,
       tax: 0,
-      subtotal: 0,
+      subTotal: 0,
       total: 0,
     }
     return checkoutDetails ? JSON.parse(checkoutDetails) : checkoutItemsMock;
@@ -94,7 +94,7 @@ export class ProductCartService {
       cartItems: [],
       cartCounter: 0,
       tax: 0,
-      subtotal: 0,
+      subTotal: 0,
       total: 0,
     });
     this.#cartItems.set([])
@@ -103,16 +103,16 @@ export class ProductCartService {
   }
 
   #calculateCheckoutDetails() {
-    const subtotal = this.#cartItems().reduce(
+    const subTotal = this.#cartItems().reduce(
       (acc: any, item: CartItems) => acc + item.product.price * item.quantity,
       0
     );
-    const tax = subtotal * this.#taxRate;
-    const total = subtotal + tax;
+    const tax = subTotal * this.#taxRate;
+    const total = subTotal + tax;
     return {
       tax,
       total,
-      subtotal
+      subTotal
     }
   }
 
