@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal, } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile} from '@angular/fire/auth';
 import { doc, setDoc, Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
@@ -11,40 +11,40 @@ type register = { email: string; password: string, displayName: string };
   providedIn: 'root',
 })
 export class AuthenticationService {
-  private auth = inject(Auth);
-  private firestore = inject(Firestore);
-  private router = inject(Router);
+  #auth = inject(Auth);
+  #firestore = inject(Firestore);
+  #router = inject(Router);
 
-  public _currentUserLogged = signal<User | null>(this.getUserFromSessionStorage());
+  #currentUserLogged = signal<User | null>(this.#getUserFromSessionStorage());
   
 
   async login(form: login): Promise<void> {
     const { user } = await signInWithEmailAndPassword(
-      this.auth,
+      this.#auth,
       form.email,
       form.password
     );
     const { uid, displayName, email, refreshToken, photoURL } = user;
-    this.setUserFromSessionStorage(
+    this.#setUserFromSessionStorage(
       new User({ uid, displayName, email, refreshToken, photoURL })
     );
-    this._currentUserLogged.set(this.getUserFromSessionStorage());
+    this.#currentUserLogged.set(this.#getUserFromSessionStorage());
   }
 
-  getUserFromSessionStorage(): User | null {
+  #getUserFromSessionStorage(): User | null {
     const user = sessionStorage.getItem('currentUserLogged');
     const userAuthenticated = user ? JSON.parse(user) : null;
     return userAuthenticated;
   }
 
-  private setUserFromSessionStorage(userLogged: User): User | null {
+  #setUserFromSessionStorage(userLogged: User): User | null {
     sessionStorage.setItem('currentUserLogged', JSON.stringify(userLogged));
     return userLogged;
   }
 
   async createNewAccount(form: register): Promise<User | null> {
     const userCredential = await createUserWithEmailAndPassword(
-      this.auth,
+      this.#auth,
       form.email,
       form.password
     );
@@ -59,19 +59,23 @@ export class AuthenticationService {
       photoURL,
     };
 
-    await setDoc(doc(this.firestore, `users/${user.uid}`), userLogged);
+    await setDoc(doc(this.#firestore, `users/${user.uid}`), userLogged);
     if (user.refreshToken) {
-      this.setUserFromSessionStorage(new User(userLogged));
-      this._currentUserLogged.set(this.getUserFromSessionStorage());
+      this.#setUserFromSessionStorage(new User(userLogged));
+      this.#currentUserLogged.set(this.#getUserFromSessionStorage());
     }
     return null;
   }
 
+  getCurrentUserLogged() {
+    return this.#currentUserLogged();
+  }
+
   logout() {
     sessionStorage.removeItem('currentUserLogged');
-    this._currentUserLogged.set(null);
-    from(signOut(this.auth));
-    this.router.navigateByUrl('/authentication/login');
+    this.#currentUserLogged.set(null);
+    from(signOut(this.#auth));
+    this.#router.navigateByUrl('/authentication/login');
     return;
   }
 }

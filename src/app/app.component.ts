@@ -48,7 +48,7 @@ export class AppComponent {
     });
 
     effect(() => {
-      this.userAuthenticated = this.#authenticationService._currentUserLogged();
+      this.userAuthenticated = this.#authenticationService.getCurrentUserLogged();
       this.checkoutDetails = this.#cartService.getCheckoutDetails();
     });
   }
