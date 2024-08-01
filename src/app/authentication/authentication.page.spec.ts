@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import AuthenticationPage from './authentication.page';
 
-import { AuthenticationPage } from './authentication.page';
 
 describe('AuthenticationPage', () => {
   let component: AuthenticationPage;
