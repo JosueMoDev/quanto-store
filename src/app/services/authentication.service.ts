@@ -46,15 +46,15 @@ export class AuthenticationService {
     const userCredential = await createUserWithEmailAndPassword(
       this.#auth,
       form.email,
-      form.password
+      form.password,
     );
     const user = userCredential.user;
-    const { uid, displayName, email, refreshToken, photoURL } = user;
-    await updateProfile(user, { displayName });
+    const { uid, email, refreshToken, photoURL } = user;
+    await updateProfile(user, { displayName: form.displayName });
     const userLogged = {
       uid,
       email,
-      displayName,
+      displayName: form.displayName,
       refreshToken,
       photoURL,
     };
