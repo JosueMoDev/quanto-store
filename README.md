@@ -23,6 +23,12 @@ Quanto Store es una aplicación web para gestionar ventas en un restaurante.
 
 4. **Navegar al directorio del proyecto**:
     ```cd quanto-store```
+## Instalación de Dependencias
+
+1. **Instalar dependencias del proyecto**:
+    ```
+    npm install
+    ```
 
 ## Configuración de Firebase
 
@@ -37,7 +43,7 @@ Quanto Store es una aplicación web para gestionar ventas en un restaurante.
     - Sigue las instrucciones para registrar tu app y obtén el código de configuración de Firebase.
 
 3. **Instalar Firebase y AngularFire**:
-    ```bash
+    ```
     npm install firebase @angular/fire
     ```
 
@@ -105,31 +111,24 @@ bootstrapApplication(AppComponent, {
 
     ```
 
-## Instalación de Dependencias
-
-1. **Instalar dependencias del proyecto**:
-    ```bash
-    npm install
-    ```
 
 ## Ejecutar la Aplicación
 
 1. **Iniciar la aplicación Ionic**:
-    ```bash
+    ```
     ionic serve
     ```
-     ```bash
-    ng serve
+     ```ng serve
     ```
 ## Ejecutar Pruebas
 
 1. **Ejecutar pruebas unitarias**:
-    ```bash
+    ```
     ng test
     ```
 
 2. **Ejecutar pruebas de extremo a extremo (E2E)**:
-    ```bash
+    ```
     ng e2e
     ```
 
