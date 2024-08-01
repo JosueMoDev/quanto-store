@@ -1,5 +1,5 @@
 <ion-card class="product-card">
-  <img [src]="product.photoUrl" alt="Product Image" class="product-image" />
+  <img [src]="product.photoUrl || 'assets/no_image_available.jpg'" alt="Product Image" class="product-image" />
 
   <ion-card-header>
     <ion-card-title>{{ product.name }}</ion-card-title>

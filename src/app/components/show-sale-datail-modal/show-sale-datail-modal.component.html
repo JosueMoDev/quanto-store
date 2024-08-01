@@ -10,7 +10,7 @@
     @for (item of cartItems.cartDetails; track item.product.photoUrl ) {
     <ion-item>
       <ion-thumbnail slot="start">
-        <img [src]="item.product.photoUrl" alt="Product Image" />
+        <img [src]="item.product.photoUrl || 'assets/no_image_available.jpg'" alt="Product Image" />
       </ion-thumbnail>
       <ion-label class="product-info">
         <div class="product-details">

@@ -11,6 +11,7 @@ import {
   query,
   where,
   Query,
+  deleteDoc,
 } from '@angular/fire/firestore';
 import { firstValueFrom, map, Observable } from 'rxjs';
 import { Product } from '@models/product.model';
@@ -37,16 +38,15 @@ export class ProductsService {
     const productsObservable: Observable<Product[]> = collectionData(
       this.#getProductsQuery,
       { idField: 'id' }
-    ).pipe(map((data) => data as Product[]));
+    ).pipe(map((data) => data.map((product) => new Product(product as Product))));
     const productsList = await firstValueFrom(productsObservable);
     this._productsList.set(productsList);
-    return productsList;
+    return this._productsList();
   }
 
   async createNewProduct(product: Product) {
     const productsCollection = collection(this.#firestore, 'products');
     const productSave = await addDoc(productsCollection, product);
-    console.log(productSave);
     this.getAllProduct();
     return productSave;
   }
@@ -61,6 +61,11 @@ export class ProductsService {
     const { id, state, ...rest } = product;
     const productDoc = doc(this.#firestore, `products/${id}`);
     await updateDoc(productDoc, rest);
+    this.getAllProduct();
+  }
+
+  async deleteProductById(id: string) {
+    await deleteDoc(doc(this.#firestore, 'products', id));
     this.getAllProduct();
   }
 }
