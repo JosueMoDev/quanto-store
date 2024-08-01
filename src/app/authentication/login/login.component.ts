@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { FormBuilder, FormGroup,ReactiveFormsModule,Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   IonButton,
   IonCard,
@@ -42,6 +42,7 @@ import { AuthenticationService } from '@services/authentication.service';
     IonInputPasswordToggle,
     ReactiveFormsModule,
     AngularFireAuthModule,
+    RouterLink,
   ],
 })
 export default class LoginComponent {
@@ -57,8 +58,8 @@ export default class LoginComponent {
 
   async loginWithEmailAndPassword() {
     try {
-      await this.authenticationService.login(this.loginForm.value); 
-      this.router.navigateByUrl('/home/products')
+      await this.authenticationService.login(this.loginForm.value);
+      this.router.navigateByUrl('/home/products');
     } catch (error) {
       const toast = await this.toastController.create({
         message: 'Login failed. Please try again.',

@@ -16,7 +16,7 @@
         <div class="product-details">
           <h2>{{ item.product.name }}</h2>
           <p>{{ item.product.price| currency }} x {{ item.quantity }}</p>
-          <p>{{ item.product.price *  item.quantity | currency }}</p>
+          <p>Amount: {{ item.product.price *  item.quantity | currency }}</p>
         </div>
         <p>ID: {{ item.product.id }}</p>
       </ion-label>
@@ -30,7 +30,7 @@
     <ion-label slot="end">{{ saleDatail.subTotal| currency }}</ion-label>
   </ion-item>
   <ion-item>
-    <ion-label>Impuesto:</ion-label>
+    <ion-label>Tax:</ion-label>
     <ion-label slot="end">{{ saleDatail.tax | currency }}</ion-label>
   </ion-item>
   <ion-item>

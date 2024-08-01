@@ -8,8 +8,8 @@
         </ion-thumbnail>
         <ion-label>
           <h2>{{ product.name }}</h2>
-          <p>Precio: {{ product.price| currency }}</p>
-          <p>Cantidad: {{ item.quantity }}</p>
+          <p>Price: {{ product.price| currency }}</p>
+          <p>Quantity: {{ item.quantity }}</p>
           <p>Total: {{ (product.price * item.quantity) | currency }}</p>
         </ion-label>
         <ion-button class="remove-button"  fill="clear"  slot="end" (click)="removeItemFromCart(product)">

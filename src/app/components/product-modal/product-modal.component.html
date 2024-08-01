@@ -1,13 +1,13 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>@if(product){Edit}@else{Add New} Product</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="close()">Close</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>@if(product){Edit}@else{Add New} Product</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="close()">Close</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <ion-item>
       <ion-label position="floating">Product Name</ion-label>
@@ -21,7 +21,12 @@
       <ion-label position="floating">Photo URL</ion-label>
       <ion-input formControlName="photoUrl"></ion-input>
     </ion-item>
-    <ion-button expand="full" type="submit" [disabled]="productForm.invalid">
+    <ion-button
+      expand="full"
+      color="dark"
+      type="submit"
+      [disabled]="productForm.invalid"
+    >
       @if(product){Edit}@else{Add} Product</ion-button
     >
   </form>

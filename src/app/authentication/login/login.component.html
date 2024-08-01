@@ -24,15 +24,18 @@
               <ion-input-password-toggle slot="end"></ion-input-password-toggle>
             </ion-input>
           </ion-item>
-
           <ion-button
-            expand="full"
-            type="submit"
-            [disabled]="loginForm.invalid"
+          expand="full"
+          type="submit"
+          class="ion-padding"
+          [disabled]="loginForm.invalid"
           >
-            Login
-          </ion-button>
-        </form>
+          Login
+        </ion-button>
+      </form>
+      <div class="ion-padding">
+        <a [routerLink]="'/authentication/register'"  fill="clear">Create new account</a>
+      </div>
       </ion-card-content>
     </ion-card>
   </div>

@@ -18,7 +18,7 @@ export class ProductModalComponent implements OnInit {
   #productsService = inject(ProductsService);
   #formBuilder = inject(FormBuilder);
   public productForm!: FormGroup;
-  
+
   ngOnInit(): void {
     this.productForm = this.#formBuilder.group({
       id: [this.product?.id ?? undefined],
