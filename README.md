@@ -93,6 +93,7 @@ Quanto Store es una aplicación web para gestionar ventas en un restaurante.
 
     import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
     import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+    import {provideStorage, getStorage } from '@angular/fire/storage'
     import { environment } from './environments/environment';
     import { getAuth, provideAuth } from '@angular/fire/auth';
     import { provideHttpClient } from '@angular/common/http';
@@ -105,7 +106,7 @@ Quanto Store es una aplicación web para gestionar ventas en un restaurante.
         provideFirestore(() => getFirestore()),
         provideHttpClient(),
         provideAuth(() => getAuth()),
-        
+        provideStorage(() => getStorage()),
     ],
     }).catch((err) => console.error(err));
 
