@@ -15,12 +15,15 @@ import {
 } from '@angular/fire/firestore';
 import { firstValueFrom, map, Observable } from 'rxjs';
 import { Product } from '@models/product.model';
+import { UploadFileService } from '@services/upload-file.service';
 type Filter = 'all' | 'active' | 'inactive';
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
   readonly #firestore = inject(Firestore);
+  readonly #uploadFileService = inject(UploadFileService);
+  #photoUrl!: string
   _productsList = signal<Product[] | []>([]);
   #getProductsQuery!:
     | CollectionReference<DocumentData>
@@ -38,15 +41,16 @@ export class ProductsService {
     const productsObservable: Observable<Product[]> = collectionData(
       this.#getProductsQuery,
       { idField: 'id' }
-    ).pipe(map((data) => data.map((product) => new Product(product as Product))));
+    ).pipe(map((data) => data as Product[]));
     const productsList = await firstValueFrom(productsObservable);
     this._productsList.set(productsList);
     return this._productsList();
   }
 
-  async createNewProduct(product: Product) {
+  async createNewProduct({id,  photoUrl, ...rest }: Product, file: File) {
+    this.#photoUrl = await this.#uploadFileService.uploadFileToFireStoreBucket(file);
     const productsCollection = collection(this.#firestore, 'products');
-    const productSave = await addDoc(productsCollection, product);
+    const productSave = await addDoc(productsCollection, {...rest, photoUrl: this.#photoUrl });
     this.getAllProduct();
     return productSave;
   }
@@ -57,15 +61,21 @@ export class ProductsService {
     this.getAllProduct()
   }
 
-  async updateProduct(product: Product) {
-    const { id, state, ...rest } = product;
+  async updateProduct({ id, state, photoUrl, ...rest }: Product, file?: File) {
+    this.#photoUrl = photoUrl;
+    if (file) {
+      this.#photoUrl = await this.#uploadFileService.uploadFileToFireStoreBucket(file);
+    }
     const productDoc = doc(this.#firestore, `products/${id}`);
-    await updateDoc(productDoc, rest);
+    await updateDoc(productDoc, {...rest, photoUrl: this.#photoUrl});
     this.getAllProduct();
   }
 
-  async deleteProductById(id: string) {
+  async deleteProductById(id: string, photoUrl: string) {
+    console.log(id, photoUrl)
+    await this.#uploadFileService.deleteFileFromFireStoreBucket(photoUrl)
     await deleteDoc(doc(this.#firestore, 'products', id));
     this.getAllProduct();
   }
+
 }

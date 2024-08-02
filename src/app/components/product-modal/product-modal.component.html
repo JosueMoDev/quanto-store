@@ -8,7 +8,15 @@
     </ion-toolbar>
   </ion-header>
 
-  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="productForm" class="ion-padding" (ngSubmit)="onSubmit()">
+    <ion-card-content>
+      <img
+        class="product-image"
+        [src]=" productForm.value.photoUrl || 'assets/no_image_available.jpg'"
+        alt="Uploaded Image"
+        width="200"
+      />
+    </ion-card-content>
     <ion-item>
       <ion-label position="floating">Product Name</ion-label>
       <ion-input formControlName="name"></ion-input>
@@ -18,16 +26,28 @@
       <ion-input type="number" formControlName="price"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Photo URL</ion-label>
-      <ion-input formControlName="photoUrl"></ion-input>
+      <ion-label>Upload Image</ion-label>
+      <input
+        type="file"
+        formArrayName="photoUrl"
+        (change)="onSelectedFile($event)"
+        accept=".jpg, .jpeg, .png"
+      />
     </ion-item>
-    <ion-button
+    @if(progressBarIndicator === 0){
+      <ion-button
       expand="full"
       color="dark"
       type="submit"
       [disabled]="productForm.invalid"
-    >
-      @if(product){Edit}@else{Add} Product</ion-button
-    >
+      >
+      @if(product){Edit}@else{Add} Product</ion-button>
+    }
+    @if(progressBarIndicator>0){
+      <ion-item>
+        <ion-label>uploading...</ion-label>
+        <ion-progress-bar [value]="progressBarIndicator / 100"></ion-progress-bar>
+      </ion-item>
+    }
   </form>
 </ion-content>

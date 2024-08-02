@@ -16,7 +16,7 @@
       <ion-icon [name]="!product.state ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
       {{!product.state ? 'show' : 'hidde'}}
     </ion-button>
-    <ion-button (click)="confirmDeleteAlert(product.id, product.name)" fill="solid" color="danger" slot="end">
+    <ion-button (click)="confirmDeleteAlert(product)" fill="solid" color="danger" slot="end">
       <ion-icon name="trash-outline"></ion-icon>
       remove
     </ion-button>
