@@ -24,12 +24,13 @@ export class SalesService {
   }: CheckoutDetails): Promise<DocumentReference> {
     const salesCollection = collection(this.#firestore, 'sales');
     this.#cartService.clearCheckoutDetails();
+    const {token, ...rest}=this.#user!
     return await addDoc(salesCollection, {
       total,
       tax,
       subTotal,
       cartDetails: cartItems,
-      user: this.#user,
+      user: rest,
       createdAt: Timestamp.now(),
     });
   }
