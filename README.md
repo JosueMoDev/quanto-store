@@ -1,4 +1,3 @@
-```markdown
 # Quanto Store
 
 ## Descripción
@@ -13,20 +12,29 @@ Quanto Store es una aplicación web para gestionar ventas en un restaurante.
 ## Creación del Proyecto con Angular/Ionic
 
 1. **Instalar Angular CLI**:
-    ``` npm install -g @angular/cli```
+    ```sh
+    npm install -g @angular/cli
+    ```
 
 2. **Instalar Ionic CLI**:
-    ```npm install -g @ionic/cli```
+    ```sh
+    npm install -g @ionic/cli
+    ```
 
 3. **Crear un nuevo proyecto Ionic**:
-    ```ionic start quanto-store blank --type=angular```
+    ```sh
+    ionic start quanto-store blank --type=angular
+    ```
 
 4. **Navegar al directorio del proyecto**:
-    ```cd quanto-store```
+    ```sh
+    cd quanto-store
+    ```
+
 ## Instalación de Dependencias
 
 1. **Instalar dependencias del proyecto**:
-    ```
+    ```sh
     npm install
     ```
 
@@ -43,11 +51,11 @@ Quanto Store es una aplicación web para gestionar ventas en un restaurante.
     - Sigue las instrucciones para registrar tu app y obtén el código de configuración de Firebase.
 
 3. **Instalar Firebase y AngularFire**:
-    ```
+    ```sh
     npm install firebase @angular/fire
     ```
 
-3. **Agregar configuración de Firebase a tu proyecto**:
+4. **Agregar configuración de Firebase a tu proyecto**:
     - Crea un archivo `src/environments/environment.ts` y `src/environments/environment.prod.ts` con la configuración de Firebase obtenida:
 
     ```typescript
@@ -80,10 +88,10 @@ Quanto Store es una aplicación web para gestionar ventas en un restaurante.
     };
     ```
 
-7. **Configurar AngularFire en tu aplicación con standalone components**:
+5. **Configurar AngularFire en tu aplicación con standalone components**:
     - Modifica el archivo `src/main.ts` para inicializar Firebase:
 
-    ```
+    ```typescript
     import { bootstrapApplication } from '@angular/platform-browser';
     import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
     import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
@@ -93,12 +101,13 @@ Quanto Store es una aplicación web para gestionar ventas en un restaurante.
 
     import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
     import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-    import {provideStorage, getStorage } from '@angular/fire/storage'
+    import { provideStorage, getStorage } from '@angular/fire/storage';
     import { environment } from './environments/environment';
     import { getAuth, provideAuth } from '@angular/fire/auth';
     import { provideHttpClient } from '@angular/common/http';
+
     bootstrapApplication(AppComponent, {
-    providers: [
+      providers: [
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         provideIonicAngular(),
         provideRouter(routes, withPreloading(PreloadAllModules)),
@@ -107,33 +116,33 @@ Quanto Store es una aplicación web para gestionar ventas en un restaurante.
         provideHttpClient(),
         provideAuth(() => getAuth()),
         provideStorage(() => getStorage()),
-    ],
+      ],
     }).catch((err) => console.error(err));
-
     ```
-
 
 ## Ejecutar la Aplicación
 
 1. **Iniciar la aplicación Ionic**:
-    ```
+    ```sh
     ionic serve
     ```
-     ```ng serve
+
+    ```sh
+    ng serve
     ```
+
 ## Ejecutar Pruebas
 
 1. **Ejecutar pruebas unitarias**:
-    ```
+    ```sh
     ng test
     ```
 
 2. **Ejecutar pruebas de extremo a extremo (E2E)**:
-    ```
+    ```sh
     ng e2e
     ```
 
 ## Licencia
 
 Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para obtener más detalles.
-```
